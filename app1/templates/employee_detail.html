@@ -1,0 +1,61 @@
+{%extends 'base.html'%}
+
+{%block content1%}
+
+<div class="row mt-3 shadow p-5" style="background-color= #d6d9d9">
+    <h3 class="text-center"> {{employee.name}} </h3>
+    <div class="col-sm-5 offset-sm-1">
+     <p><strong>Name: </strong>{{employee.name}}</p>
+     <p><strong>Email Id: </strong>{{employee.email}}</p>
+     <p><strong>Mobile No: </strong>{{employee.mobile}}</p>
+     <p><strong>Date of Birth: </strong>{{employee.date_of_birth}}</p>
+     <p><strong>Skills: </strong>{{employee.skills}}</p>
+     <p><strong>State: </strong>{{employee.state}}</p>   
+     <p><strong>City: </strong>{{employee.city}}</p>
+
+     <p><strong>Resume: </strong>
+      {% if employee.resume%}
+      <a href="{{employee.resume.url }}">Download Resume</a>
+    {%else%}
+      No Resume 
+      {%endif%}
+    </p>
+
+    <p><strong>Resume: </strong>
+        {% if employee.video%}
+        <a href="{{employee.video.url }}">Download Video</a>
+      {%else%}
+        No Video
+        {%endif%}
+      </p>
+
+</div>
+<div class="col-sm-4">
+    <div class="row">
+        <div class="image-container float-end">
+        {%if employee.profile_picture%}
+        <img src="{{employee.profile_picture.url}}" alt="Profile Picture" class="img-fluid rounded-circle">
+        {%endif%}</div>
+    </div>
+    <div class="row">
+        <div class="video-container" style="max-width:200px; height:auto;">
+        {%if employee.video%}
+        <video controls class="embed-responsive-item" style="width:100%; height:auto;">
+            <source src="{{employee.video.url}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        {%endif%}
+    </div>
+    </div>
+</div>  
+<div class="text-center mt-4">
+
+    <a href="{% url 'employee_update' employee.id %}"  class="btn btn-warning">Edit</a>
+    <form action={% url "employee_delete" employee.id %} method="post" class="d-inline">
+       {%csrf_token%}
+       <input type="submit" class="btn btn-danger" value="Delete">
+    </form>
+   <a href="/" class="btn btn-primary">Back</a>
+</div>              
+
+{%endblock content1%}

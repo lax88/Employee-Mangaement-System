@@ -1,0 +1,11 @@
+{%include 'base.html'%}
+{%block content1%}
+
+<div class="row m-4">
+<div class="list_employee mt-2">
+{%for employee in employees%}
+<h4><a href= "{% url 'employee_detail' employee.id%}">{{employee.name}}</a></h4><br>
+{%endfor%}
+</div>
+</div>
+{%endblock content1%}
